@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>HARIVO: Harnessing Text-to-Image Models for Text-to-Video Generation</title>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="./static/slick/slick.css" />
+  <link rel="stylesheet" type="text/css" href="./static/slick/slick-theme.css" />
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+  </nav>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="container has-text-centered">
+            <h1 class="title is-1 publication-title">
+              HARIVO:
+            </h1>
+            <h3 class="title is-3 publication-title">
+              Harnessing Text-to-Image Models for Text-to-Video Generation
+            </h3>
+            <div class="is-size-5 publication-authors">
+              <p>
+                ECCV 2024
+              </p>
+              <br>
+              <p>
+                <span class="author" data-institution="1,2*,5"><a href="https://sites.google.com/view/mingikwon">Mingi Kwon</a></span>,
+                <span class="author" data-institution="2">Seoung Wug Oh</span>,
+                <span class="author" data-institution="2">Yang Zhou</span>,
+                <span class="author" data-institution="2">Difan Liu</span>,
+                <span class="author" data-institution="2">Joon-Young Lee</span>,
+                <span class="author" data-institution="2">Haoran Cai</span>,
+                <span class="author" data-institution="3">Baqiao Liu</span>,
+                <span class="author" data-institution="2,4">Feng Liu</span><sup>&Dagger;</sup>,
+                <span class="author" data-institution="1"><a href="https://vilab.yonsei.ac.kr/member">Youngjung Uh</a></span><sup>&dagger;</sup>,
+              </p>
+            </div>
+            <div class="is-size-5 publication-authors">
+              <p><sup>1</sup>Yonsei University, <sup>2</sup>Adobe,
+                <sup>3</sup>University of Illinois Urbana-Champaign, <sup>4</sup>Portland State University,
+                <sup>5</sup>GivernyAI
+              </p>
+              <p>*This work was done during the internship at Adobe,
+                <sup>&Dagger;</sup>Project Lead, <sup>&dagger;</sup>Corresponding Author.
+              </p>
+            </div>
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href=""
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper(soon)</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv(soon)</span>
+                  </a>
+                </span>
+                <!-- Video Link. -->
+                <span class="link-block">
+                  <a href=""
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video(soon)</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <!-- <h2 class="title is-3">Off-the-shelf models Results</h2> -->
+          <div class="content has-text-justified">
+            <p>
+              Hovering the mouse cursor over the videos will display the captions/information.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="video_2" id="video_gallery" style="width: 100%">
+      
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/Teddy.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A cute Teddy bear walking down 5th Avenue, beautiful sunset.</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/A-horse-trotting-along-a-beach-at-sunset.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A horse trotting along a beach at sunsetA horse trotting along a beach at sunset.</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/Parrot.mp4"
+              type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A parrot hosting a cooking show in a jungle kitchen.</div>
+          </div>
+        </div>
+      </div>
+      <!-- ##################### -->
+      <div class="video_wrapper nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/Rabbit.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A cute funny rabbit dancing, realistic</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/FlyingRobot.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A robot flying in the sky, animate cartoon style</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/Astronaut-walking.mp4"
+              type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>An astronaut walking, a sci-fi digital art</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/0012.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A martial artist who demonstrates ancient Chinese martial arts in the fog.</div>
+          </div>
+        </div>
+      </div>
+      <!-- ##################### -->
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/Iron-Man-walking-in-the-park.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Iron Man walking in the park.</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/A-lion-swimming-in-the-pool,colored-pencil-drawing.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A lion swimming in the pool, colored pencil drawing.</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/A-dog-sitting,-film-noir-movie-cinema-concept.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A dog sitting, film noir movie cinema concept cartoon, black and white.</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/A-kingkong-in-the-moon,-A-beautiful-award-winning-photography.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A kingkong in the moon, A beautiful award winning photography.</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/A-bear-walking-in-the-park,-watercolor-painting.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>
+              A bear walking in the park, watercolor paintings.</div>
+          </div>
+        </div>
+      </div>
+      <!-- ##################### -->
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/0001.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Picture of fire giant inside human sceleton. The face is extremely angry and rouge, ready to punish his surroundings, fire, smoking.</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/0002.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Redshift style Routermaster, Dripping & Splashing Watercolor, Flowerly, passion, intricate details pretty girl, masterpiece, artwork by Carne Griffiths & Marc Allante, long shot view, HD.</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/0003.mp4"
+              type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Romantic painting of a ship sailing in a stormy sea.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+      <!-- ##################### -->
+
+      <section class="section">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+              <!-- Abstract 内容... -->
+              <h2 class="title is-3">Abstract</h2>
+              <div class="content has-text-justified">
+                <p>
+                  We present a method to create diffusion-based video models from pretrained Text-to-Image (T2I) models. Recently, AnimateDiff proposed freezing the T2I model while only training temporal layers. We advance this method by proposing a unique architecture, incorporating a mapping network and frame-wise tokens, tailored for video generation while maintaining the diversity and creativity of the original T2I model. Key innovations include novel loss functions for temporal smoothness and a mitigating gradient sampling technique, ensuring realistic and temporally consistent video generation despite limited public video data. We have successfully integrated video-specific inductive biases into the architecture and loss functions. Our method, built on the frozen StableDiffusion model, simplifies training processes and allows for seamless integration with off-the-shelf models like ControlNet and DreamBooth. 
+                </p>
+                <p>
+                  <strong>We only use the public dataset, WebVid-10M.</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="container has-text-centered">
+              <!-- 工作介绍内容... -->
+              <h2 class="title is-3 columns is-centered">Overall architecture of HARIVO</h2>
+              <div class="image-container">
+                <img src="assets/images/overall.png" alt="" class="centered-image">
+                <p class="image-description">
+                  <strong>Overall architecture of HARIVO.</strong> We trained injected temporal layers while keeping the Text-to-Image model frozen. We propose methods to leverage inductive biases for videos. Specifically, we introduce a Mapping network that modifies the input distribution and a Frame-wise token generator that creates different text tokens for each frame. Additionally, we propose a Temporal regularized self-attention loss that ensures the self-attention maps are similar across frames, and a decoupled contrastive loss in the deepest feature map, the h-space.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- <section>
+        <div class="columns is-centered has-text-centered">
+          <h2 class="title is-3"> Ablation Study</h2>
+      </div>
+      <br>
+      <h2 class="subtitle has-text-centered">
+        A chihuahua in astronaut suit floating in space.
+      </h2>
+      
+      <div id="wrapper" style="display: flex; justify-content: space-around; align-items: flex-start; flex-wrap: wrap; text-align: center; gap: 20px; width: 80%; margin: auto;"> 
+        <figure style="flex-basis: calc(30% - 1px); max-width: calc(30% - 1px);">
+          <video autoplay controls muted loop playsinline style="width: 100%; height: auto; object-fit: contain;"> 
+              <source type="video/mp4" src="assets/VideoResults/A_chihuahua_in_astronaut_suit__W432H256_025_0_3_19___mapping_fw.mp4" /> 
+          </video>
+          <figcaption>[A] <br> w/o mapping network, <br>w/o frame-wise tokens.</figcaption>
+        </figure>
+        <figure style="flex-basis: calc(30% - 1px); max-width: calc(30% - 1px);">
+            <video autoplay controls muted loop playsinline style="width: 100%; height: auto; object-fit: contain;"> 
+                <source type="video/mp4" src="assets/VideoResults/A_chihuahua_in_astronaut_suit__W432H256_025_0_3_19____fw.mp4" /> 
+            </video>
+            <figcaption>[B] <br> w/ mapping network, <br>w/o frame-wise tokens.</figcaption>
+        </figure>
+        <figure style="flex-basis: calc(30% - 1px); max-width: calc(30% - 1px);">
+          <video autoplay controls muted loop playsinline style="width: 100%; height: auto; object-fit: contain;"> 
+              <source type="video/mp4" src="assets/VideoResults/A_chihuahua_in_astronaut_suit__W432H256_025_0_3_19.mp4" /> 
+          </video>
+          <figcaption>[C] <br> w/ mapping network, <br>w/ frame-wise tokens.</figcaption>
+      </figure>
+      </div>
+      </section> -->
+
+      <section>
+        <div class="columns is-centered has-text-centered">
+          <h2 class="title is-3"> Ablation Study</h2>
+        </div>
+        <br>
+        <h2 class="subtitle has-text-centered">
+          A chihuahua in astronaut suit floating in space.
+        </h2>
+        
+        <div id="wrapper" class="video-gallery">
+          <figure class="video-wrapper">
+            <video autoplay muted loop playsinline>
+              <source type="video/mp4" src="assets/VideoResults/A_chihuahua_in_astronaut_suit__W432H256_025_0_3_19___mapping_fw.mp4" />
+            </video>
+            <figcaption>[A] <br> w/o mapping network, <br>w/o frame-wise tokens.</figcaption>
+          </figure>
+          <figure class="video-wrapper">
+            <video autoplay muted loop playsinline>
+              <source type="video/mp4" src="assets/VideoResults/A_chihuahua_in_astronaut_suit__W432H256_025_0_3_19____fw.mp4" />
+            </video>
+            <figcaption>[B] <br> w/ mapping network, <br>w/o frame-wise tokens.</figcaption>
+          </figure>
+          <figure class="video-wrapper">
+            <video autoplay muted loop playsinline>
+              <source type="video/mp4" src="assets/VideoResults/A_chihuahua_in_astronaut_suit__W432H256_025_0_3_19.mp4" />
+            </video>
+            <figcaption>[C] <br> w/ mapping network, <br>w/ frame-wise tokens.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+    
+    <br>
+    <section>
+      <div class="columns is-centered has-text-centered">
+        <h2 class="title is-3">Effect of varying the guidance scale α in MG sampling.</h2>
+      </div>
+      
+      <br>
+      
+      <div id="wrapper" class="video-gallery">
+        <figure class="video-wrapper">
+          <figcaption>&alpha; = 0</figcaption>
+          <video autoplay muted loop playsinline>
+            <source type="video/mp4" src="assets/VideoResults/Astronaut_riding_a_white_horse_W256H256_022_0_3_15_MG0___.mp4" />
+          </video>
+        </figure>
+        <figure class="video-wrapper">
+          <figcaption>&alpha; = 40 (Ours)</figcaption>
+          <video autoplay muted loop playsinline>
+            <source type="video/mp4" src="assets/VideoResults/Astronaut_riding_a_white_horse_W256H256_022_0_3_15_MG40___.mp4" />
+          </video>
+        </figure>
+        <figure class="video-wrapper">
+          <figcaption>&alpha; = 150</figcaption>
+          <video autoplay muted loop playsinline>
+            <source type="video/mp4" src="assets/VideoResults/Astronaut_riding_a_white_horse_W256H256_022_0_3_15_MG200___.mp4" />
+          </video>
+        </figure>
+        <div class="subtitle has-text-centered video-titles">
+          <span>An astronaut riding a horse</span>
+        </div>
+      </div>
+      <div id="wrapper" class="video-gallery">
+        <figure class="video-wrapper">
+          <figcaption>&alpha; = 0</figcaption>
+          <video autoplay muted loop playsinline>
+            <source type="video/mp4" src="assets/VideoResults/A_cute_funny_rabbit_dancing,_r_W256H256_025_0_3_18_MG0___.mp4" />
+          </video>
+        </figure>
+        <figure class="video-wrapper">
+          <figcaption>&alpha; = 40 (Ours)</figcaption>
+          <video autoplay muted loop playsinline>
+            <source type="video/mp4" src="assets/VideoResults/A_cute_funny_rabbit_dancing,_r_W256H256_025_0_3_18_MG40___.mp4" />
+          </video>
+        </figure>
+        <figure class="video-wrapper">
+          <figcaption>&alpha; = 150</figcaption>
+          <video autoplay muted loop playsinline>
+            <source type="video/mp4" src="assets/VideoResults/A_cute_funny_rabbit_dancing,_r_W256H256_025_0_3_18_MG150___.mp4" />
+          </video>
+        </figure>
+      </div>
+      
+      <br>
+      <div class="subtitle has-text-centered video-titles">
+        <span>A cute funny rabbit dancing, realistic</span>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Off-the-shelf models Results</h2>
+            <div class="content has-text-justified">
+              <p>
+                HARIVO completely freezes the image model, allowing the free use of off-the-shelf models such as ControlNet.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero teaser">
+      <div class="video_2" id="video_gallery" style="width: 100%">
+        
+        <!-- ################# -->
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <video loop="" muted="" playsinline="" autoplay="">
+              <source src="assets/VideoResults/controlnet_origin_ojing.mp4"
+                type="video/mp4">
+            </video>
+            <div class="caption">
+              <div>Original video</div>
+            </div>
+          </div>
+        </div>
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <video loop="" muted="" playsinline="" autoplay="">
+              <source src="assets/VideoResults/controlnet_softedge_ojing.mp4" type="video/mp4">
+            </video>
+            <div class="caption">
+              <div>Extracted condition.</div>
+            </div>
+          </div>
+        </div>
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <video loop="" muted="" playsinline="" autoplay="">
+              <source src="assets/VideoResults/controlnet_A-handsome-boy-smiling_pencil-drawing_sketch.mp4" type="video/mp4">
+            </video>
+            <div class="caption">
+              <div>A handsome boy similing, pencil drawing sketch.</div>
+            </div>
+          </div>
+        </div>
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <video loop="" muted="" playsinline="" autoplay="">
+              <source src="assets/VideoResults/controlnet_framewise_A-man-smiling_pencil-drawing_grayscale_illustratio.mp4" type="video/mp4">
+            </video>
+            <div class="caption">
+              <div>Frame-wise generated result.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ################# -->
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <video loop="" muted="" playsinline="" autoplay="">
+              <source src="assets/VideoResults/controlnet_softedge_parrots_crop.mp4"
+                type="video/mp4">
+            </video>
+            <div class="caption">
+              <div>ControlNet softedge condition</div>
+            </div>
+          </div>
+        </div>
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <video loop="" muted="" playsinline="" autoplay="">
+              <source src="assets/VideoResults/0009.mp4" type="video/mp4">
+            </video>
+            <div class="caption">
+              <div>A beautiful pair of parrots make love.</div>
+            </div>
+          </div>
+        </div>
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <video loop="" muted="" playsinline="" autoplay="">
+              <source src="assets/VideoResults/0010.mp4" type="video/mp4">
+            </video>
+            <div class="caption">
+              <div>A beautiful pair of parrots make love at the beach, sunset.</div>
+            </div>
+          </div>
+        </div>
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <video loop="" muted="" playsinline="" autoplay="">
+              <source src="assets/VideoResults/0011.mp4"
+                type="video/mp4">
+            </video>
+            <div class="caption">
+              <div>A beautiful pair of parrots make love at the beach.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ################# -->
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <video loop="" muted="" playsinline="" autoplay="">
+              <source src="assets/VideoResults/dance.mp4"
+                type="video/mp4">
+            </video>
+            <div class="caption">
+              <div>ControlNet pose condition</div>
+            </div>
+          </div>
+        </div>
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <video loop="" muted="" playsinline="" autoplay="">
+              <source src="assets/VideoResults/01_1543525894221629909_A-boy-dancing_sunset_park_A-beautiful-award-winnin.mp4" type="video/mp4">
+            </video>
+            <div class="caption">
+              <div>A boy dancing, A beautiful award-winning photography.</div>
+            </div>
+          </div>
+        </div>
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <video loop="" muted="" playsinline="" autoplay="">
+              <source src="assets/VideoResults/01_7152049420038396979_A-boy-dancing_colored-pencil-drawing_illustration.mp4" type="video/mp4">
+            </video>
+            <div class="caption">
+              <div>A boy dancing, clolored pencil drawing.</div>
+            </div>
+          </div>
+        </div>
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <video loop="" muted="" playsinline="" autoplay="">
+              <source src="assets/VideoResults/02_3084681628198865065_A-boy-dancing_pencil-drawing-sketch_gray-scale.mp4"
+                type="video/mp4">
+            </video>
+            <div class="caption">
+              <div>A boy dancing, pencil drawing sketch.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <div class="content has-text-justified">
+              <p>
+                Condition could be any specific frame. (e.g., first frame and the last frame of the video)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero teaser">
+      <div class="video_2" id="video_gallery" style="width: 100%">
+         <!-- ################# -->
+         <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <img src="assets/images/teaser_darth.jpg" alt="ControlNet pose condition">
+            <div class="caption">
+              <div>ControlNet pose condition</div>
+            </div>
+          </div>
+        </div>
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <video loop="" muted="" playsinline="" autoplay="">
+              <source src="assets/VideoResults/Darth-Vader-standing.mp4" type="video/mp4">
+            </video>
+            <div class="caption">
+              <div>Darth Vader standing.</div>
+            </div>
+          </div>
+        </div>
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <img src="assets/images/teaser_sloth.jpg" alt="ControlNet softedge condition">
+            <div class="caption">
+              <div>ControlNet softedge condition</div>
+            </div>
+          </div>
+        </div>
+        <div class="video_wrapper nomobile">
+          <div class="video_container">
+            <video loop="" muted="" playsinline="" autoplay="">
+              <source src="assets/VideoResults/A-cute-sloth-smiling_3D-animation.mp4"
+                type="video/mp4">
+            </video>
+            <div class="caption">
+              <div>A cute sloth smiling, 3D animation.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<!-- ################# -->
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            Similar to AnimateDiff, we can use any DreamBooth models and LoRAs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="video_2" id="video_gallery" style="width: 100%">
+    <!-- ################# -->
+    <div class="video_wrapper nomobile">
+      <div class="video_container">
+        <video loop="" muted="" playsinline="" autoplay="">
+          <source src="assets/VideoResults/(absurdres,_intricate,_photore_OURS.mp4"
+            type="video/mp4">
+        </video>
+        <div class="caption">
+          <div>Ours + rcnzCartoon3d</div>
+        </div>
+      </div>
+    </div>
+    <div class="video_wrapper nomobile">
+      <div class="video_container">
+        <video loop="" muted="" playsinline="" autoplay="">
+          <source src="assets/VideoResults/(Best_Quality,_Ultra_High_Res,_ORIGIN____.mp4"
+            type="video/mp4">
+        </video>
+        <div class="caption">
+          <div>Ours + rcnzCartoon3d</div>
+        </div>
+      </div>
+    </div>
+    <div class="video_wrapper nomobile">
+      <div class="video_container">
+        <video loop="" muted="" playsinline="" autoplay="">
+          <source src="assets/VideoResults/(masterpiece,_best_quality),_1_OURS_MG20_0.mp4"
+            type="video/mp4">
+        </video>
+        <div class="caption">
+          <div>Ours + toonyou</div>
+        </div>
+      </div>
+    </div>
+    <div class="video_wrapper nomobile">
+      <div class="video_container">
+        <video loop="" muted="" playsinline="" autoplay="">
+          <source src="assets/VideoResults/(masterpiece,_best_quality:12)_OURS.mp4"
+            type="video/mp4">
+        </video>
+        <div class="caption">
+          <div>Ours + majicmix</div>
+        </div>
+      </div>
+    </div>
+    <div class="video_wrapper nomobile">
+      <div class="video_container">
+        <video loop="" muted="" playsinline="" autoplay="">
+          <source src="assets/VideoResults/<lora:Fares_FaresSD15:07>_port_OURS_MG20_0.mp4"
+            type="video/mp4">
+        </video>
+        <div class="caption">
+          <div>Ours + realisticVision</div>
+        </div>
+      </div>
+    </div>
+    <div class="video_wrapper nomobile">
+      <div class="video_container">
+        <video loop="" muted="" playsinline="" autoplay="">
+          <source src="assets/VideoResults/<lora:shtyocta-05:09>_real,_at_OURS.mp4"
+            type="video/mp4">
+        </video>
+        <div class="caption">
+          <div>Ours + toonyou</div>
+        </div>
+      </div>
+    </div>
+    <div class="video_wrapper nomobile">
+      <div class="video_container">
+        <video loop="" muted="" playsinline="" autoplay="">
+          <source src="assets/VideoResults/<lora:add_detail:15>_,_(Macro__OURS_MG20_0.mp4"
+            type="video/mp4">
+        </video>
+        <div class="caption">
+          <div>Ours + lyriel</div>
+        </div>
+      </div>
+    </div>
+    <div class="video_wrapper nomobile">
+      <div class="video_container">
+        <video loop="" muted="" playsinline="" autoplay="">
+          <source src="assets/VideoResults/a_young_girl_laying_in_the_gra_OURS_MG20_0.mp4"
+            type="video/mp4">
+        </video>
+        <div class="caption">
+          <div>Ours + rcnzCartoon3d</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <!-- Abstract 内容... -->
+          <h2 class="title is-3">Text-to-Video Results</h2>
+          <div class="content has-text-justified">
+            <p>
+              HARIVO completely freezes the image model, enabling the generation of videos in various styles such as illustration, pencil drawing, and sci-fi. Additionally, leveraging inductive biases for video further enhances motion within the videos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero teaser">
+    <div class="video_2" id="video_gallery" style="width: 100%">
+      <!-- ################# -->
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/0004.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A close-up of a fire spitting dragon, cinematic shot, further emphasizing the dragon's powerful presence, detailed.</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/0005.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Robot, steampunk cybernetic biomechanical, 3d model, very coherent symmetrical artwork, unreal engine realistic render, 8k, micro detail, intricate, elegant, highly detailed, centered, digital painting, artstation, smooth, sharp focus, illustration, artgerm, Caio Fantini, wlop</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/0006.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Cyril Rolando style, close-up, most beautiful 16yo Charlotte de Witte, joy expression, upper body, on black, black & white, detailed gorgeous character, sharp focus, crisp quality, golden ratio, 2d, black ink, liquid melting, brush strokes, watercolor, acrylic, art deco, vector illustration, (fantasy flora, by Vhils)</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- ################# -->
+
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/Skull.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A detailed drawing of a person crumbling down due to drugs, while wearing a mask adorned with a skull pattern.</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/UFO.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A UFO fleet hovering over a futuristic metropolis, illustration.</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/Giant-jellyfish-floating-in-the-sky-like-balloons.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Giant jellyfish floating in the sky like balloons.</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/Kingkong_in_the_city_film_noir_525_0_3_18_MG40___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Kingkong in the city, film noir movie cinema concept cartoon style black and white</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/47-A-elephant-swimming-in-the-pool,-A-beautiful-award-winning-photography_-3.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>An elephant swimming in the pool, A beautiful award-winning photography</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/58-A-rabbit-hopping-through-a-field-of-daisies_-5.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A rabbit hopping through a field of daisies</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/4-A-space-shuttle-launching-to-Mars.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A space shuttle launching to Mars</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/3-Baby-ducks-paddling-in-a-pond.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Baby ducks paddling in a pond</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/Numerous-yachts-moored-at-the-yacht-marina-under-the-night-sky.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Numerous yachts moored at the yacht marina under the night sky</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/A_dog_looking_at_the_camera_wi_125_0_3_18_MG50___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A dog looking at the camera with a funny shocking face, widely opened eyes, 4K HD</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/24-A-traditional-sailing-ship-navigating-through-iceberg-filled-polar-waters_-2.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A traditional sailing ship navigating through iceberg filled polar waters</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/0-A-colossal-whale-swimming-under-a-frozen-iceberg,-illuminated-by-1.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A colossal whale swimming under a frozen iceberg, aurora in the sky, illustration</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/75-A-butterfly-on-a-tree-branch_-3.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A butterfly on a tree branch</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/14-A-sea-monster-emerging-from-ocean-depths,-in-a-dramatic-1.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A sea monster emerging from ocean depths, in a dramatic scene</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/3-A-whale-sized-goldfish-swimming-in-a-giant-glass-bowl-in-1.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A whale sized goldfish swimming in a giant glass bowl</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/1-An-antique-steam-train-chugging-through-a-mystical-forest-shrouded-3.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>An antique steam train chugging through a mystical forest shrouded</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/79-A-large-ship-sailing-through-a-sea-of-stars,-depicted-2.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A large ship sailing through a sea of stars, depicted by illustration</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/8-A-mystical-forest-with-glowing-trees,-in-a-surreal-acrylic-2.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A mystical forest with glowing trees, in a surreal acrylic painting</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/17-An-octopus-underwater-5.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>An octopus underwater</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/74-A-caterpillar-inching-along-a-green-leaf_-6.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A caterpillar inching along a green leaf</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/78-A-mystical-stag-in-an-ancient-grove,-in-a-moonlit-4.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A mystical stage in an ancient grove, in a moonlit clearing, a majestic deer standing silently, bathed in the ethereal glow, pencil drawing</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/43-A-Golden-Retriever-swimming-in-the-pool,-A-beautiful-award-winning-5.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A dog swimming</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/49-A-tower-of-babel-reaching-the-clouds,-in-a-surreal-6.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A tower of babel reaching the clouds, in a surreal painting</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/20-An-enchanted-castle-floating-on-a-cloud-above-a-vibrant-6.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>An enchanted castle floating on a cloud above a vibrant rainbow</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/68-A-time-machine-activating-in-a-lab,-in-a-sci-fi-0.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A time machine activating in a lab, in a sci-fi artistic painting</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/elon_musk_in_space_suit_close__025_0_3_18_MG50___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Elon Musk in space suit, close shot</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/A_woman_with_striking_blue_eye_725_0_3_18_MG50___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A woman with striking blue eye</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/A_horse_galloping_through_van__225_0_3_18_MG50___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A horse galloping through Van Gogh's painting</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/A_young_man_with_curly_brown_h_125_0_3_18_MG50___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A young man with curly brown hair and a noticeable scar on his left cheek is typing on his laptop at a coffee shop.</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/Chinese_traditional_beauty,_we_625_0_3_18_MG50___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Chinese traditional beauty, wearing ancient attire and adorned with traditional makeup, showcasing the elegance and grace of a beautiful woman from ancient China.</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/a_bespectacled_sloth_reading_i_525_0_3_18_MG50___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A bespectacled sloth reading a book</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/medium_shot_of_Selena_Marie_Gomez,_a_be_725_0_3_18_MG50___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Medium shot of Selena Marie Gomez</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/a_cyborg_standing_on_top_of_a__925_0_3_18_MG50___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A cyborg standing on top of a Cyberpunk city</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/An_old_photograph_of_a_1920s_a_125_0_3_18_MG50___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>An old photograph of the 1920s Eiffel Tower</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/Cute_small_dog_sitting_in_a_mo_425_0_3_18_MG50___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Cute small dog sitting in a movie theater</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper2 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/Iron_Man_is_standing_on_th_825_0_3_18_MG50___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Iron Man is standing on the rainy street</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/A-giraffe-in-the-park,colored-pencil-drawing_.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A giraffe in the park, colored pencil drawing</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/A-Astronaut-walking-in-the-park.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>An astronaut walking in the park</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/A_super_cool_giant_robot_in_Cy_W256H432_425_0_3_18_MG40___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A super cool giant robot in Cyberpunk city</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/A-wizard-flying-in-the-sky,-ilustration.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A wizard flying in the sky, illustration</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/A-cat-walking-in-the-park,-pencil-drawing.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A cat walking in the park, pencil drawing</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/322-A-Golden-Retriever-in-the-moon,-oil-painting_-6.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A Golden Retriever in the moon, oil painting</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/6-A-elephant-walking-in-the-park,-_-2.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A elephant walking in the park</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/13-A-Astronaut-walking-in-the-park,-animate-cartoon-style_-0.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A Astronaut walking in the park, animate cartoon style</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/240-A-tiger-looking-at-the-camera,-_-0.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A tiger looking at the camera</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/42-A-Golden-Retriever-swimming-in-the-pool,-watercolor-painting_-5.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A Golden Retriever swimming in the pool, watercolor painting</div>
+          </div>
+        </div>
+      </div>
+
+
+      
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/113-A-zombie-drinking-coffee,-A-sci-fi-digital-art_-3.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A zombie drinking coffee, A sci-fi digital art</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/looking_at_the_camera_OURS256_MG20_0.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A beautiful woman looking at the camera</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/170-A-rabbit-riding-a-skateboard,-A-sci-fi-digital-art_-7.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A rabbit riding a skateboard, A sci-fi digital art</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/402-A-man-is-standing-and-doing-Tai-Chi_-5.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A man is standing and doing Tai-Chi</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/7-A-cat-walking-in-the-park,-watercolor-painting_-5.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A cat walking in the park, watercolor painting</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/12-A-Astronaut-walking-in-the-park,-pencil-drawing_-7.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A Astronaut walking in the park, pencil drawing</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/499-A-dragon-in-the-New-York-City,-A-beautiful-award-winning-7.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A dragon in the New York City, A beautiful award winning photograph</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/Balloon_full_of_water_explodin_18_MG20___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Balloon full of water exploding, slow motion</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/92-A-Astronaut-drinking-coffee,-_-4.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A Astronaut drinking coffee</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/242-A-Golden-Retriever-looking-at-the-camera,-pencil-drawing_-7.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A Golden Retriever looking at the camera, pencil drawing</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/134-A-robot-flying-in-the-sky,-oil-painting_-0.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A robot flying in the sky, oil painting</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/133-A-Astronaut-flying-in-the-sky,-A-sci-fi-digital-art_-3.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A Astronaut flying in the sky, A sci-fi digital art</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/00_42_A-handsome-boy-smiling_pencil-drawing_sketch.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A handsome boy smiling, pencil drawing sketch</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/6-A-giraffe-walking-in-the-park,-A-detailed-drawing_-0.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A giraffe walking in the park, A detailed drawing</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/142-A-turtle-flying-in-the-sky,-A-sci-fi-digital-art_-1.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A turtle flying in the sky, A sci-fi digital art</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/215-A-teddy-bear-dancing,-oil-painting_-2.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A teddy bear dancing, oil painting</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/A_pack_of_blue_rose_18_MG20___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A pack of blue rose</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/213-A-Astronaut-dancing,-A-beautiful-award-winning-photography_-5.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A Astronaut dancing, A beautiful award winning photography</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/102-A-turtle-drinking-coffee,-A-sci-fi-digital-art_-1.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A turtle drinking coffee, A sci-fi digital art</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/Cat_wearing_a_Straw_hat_20_MG40___.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Cat wearing a Straw hat, sitting on the chair, in front of the desk</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/98-A-pig-drinking-coffee,-ilustration_-1.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A pig drinking coffee, ilustration</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/118-A-kingkong-drinking-coffee,-watercolor-painting_-7.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A kingkong drinking coffee, watercolor painting</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/115-A-alien-drinking-coffee,-watercolor-painting_-1.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A alien drinking coffee, watercolor painting</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/406-A-giraffe-under-the-sea,-A-beautiful-award-winning-photography_-1.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A giraffe under the sea, A beautiful award winning photography</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/203-A-Golden-Retriever-dancing,-A-beautiful-award-winning-photography_-5.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A Golden Retriever dancing, A beautiful award winning photography</div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/Astronaut_riding_a_horse_W256H256_925_0_3_18____.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Astronaut riding a horse</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper3 nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/small/Yoda_playing_guitar_on_the_sta_W256H256_025_0_3_18____.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Yoda playing guitar on the stage</div>
+          </div>
+        </div>
+      </div>
+     -->
+
+
+
+      <!-- #################
+      <div class="video_wrapper nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/0007.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>Astronaut on a horse.</div>
+          </div>
+        </div>
+      </div>
+      <div class="video_wrapper nomobile">
+        <div class="video_container">
+          <video loop="" muted="" playsinline="" autoplay="">
+            <source src="assets/VideoResults/0008.mp4" type="video/mp4">
+          </video>
+          <div class="caption">
+            <div>A monkey typing on a laptop at the desk.</div>
+          </div>
+        </div>
+      </div> -->
+
+
+      
+
+
+    </div>
+  </section>
+
+
+
+
+  <script type="text/javascript" src="./static/slick/slick.min.js"></script>
+</body>
+
+</html>
+
+<style>
+  .videoContainer {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  .videoContainer video.mainVideo {
+    width: 100%;
+    height: auto;
+  }
+
+  .videoContainer video.overlayVideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    /* Adjust this value to make video2 smaller or larger */
+  }
+</style>
