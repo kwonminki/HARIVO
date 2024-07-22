@@ -115,7 +115,12 @@
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
           <!-- <h2 class="title is-3">Off-the-shelf models Results</h2> -->
-          <div class="content has-text-justified">
+          <div class="mobileonly">
+            <p>
+              <strong>Mobile users:</strong> Mobile devices are not supported for many of contents on this page. Please visit this page on a desktop or laptop computer for the best experience.
+            </p>
+          </div>
+          <div class="content has-text-justified nomobile">
             <p>
               Hovering the mouse cursor over the videos will display the captions/information.
             </p>
@@ -128,7 +133,7 @@
   <section class="hero teaser">
     <div class="video_2" id="video_gallery" style="width: 100%">
       
-      <div class="video_wrapper2 nomobile">
+      <div class="video_wrapper2">
         <div class="video_container">
           <video loop="" muted="" playsinline="" autoplay="">
             <source src="assets/VideoResults/Teddy.mp4" type="video/mp4">
@@ -138,7 +143,7 @@
           </div>
         </div>
       </div>
-      <div class="video_wrapper2 nomobile">
+      <div class="video_wrapper2">
         <div class="video_container">
           <video loop="" muted="" playsinline="" autoplay="">
             <source src="assets/VideoResults/A-horse-trotting-along-a-beach-at-sunset.mp4" type="video/mp4">
@@ -357,96 +362,102 @@
       </section> -->
 
       <section>
-        <div class="columns is-centered has-text-centered">
+        <div class="columns is-centered has-text-centered nomobile">
           <h2 class="title is-3"> Ablation Study</h2>
+          <br>
+          <h2 class="subtitle has-text-centered">
+            A chihuahua in astronaut suit floating in space.
+          </h2>
         </div>
-        <br>
-        <h2 class="subtitle has-text-centered">
-          A chihuahua in astronaut suit floating in space.
-        </h2>
         
-        <div id="wrapper" class="video-gallery">
-          <figure class="video-wrapper">
-            <video autoplay muted loop playsinline>
-              <source type="video/mp4" src="assets/VideoResults/A_chihuahua_in_astronaut_suit__W432H256_025_0_3_19___mapping_fw.mp4" />
-            </video>
-            <figcaption>[A] <br> w/o mapping network, <br>w/o frame-wise tokens.</figcaption>
-          </figure>
-          <figure class="video-wrapper">
-            <video autoplay muted loop playsinline>
-              <source type="video/mp4" src="assets/VideoResults/A_chihuahua_in_astronaut_suit__W432H256_025_0_3_19____fw.mp4" />
-            </video>
-            <figcaption>[B] <br> w/ mapping network, <br>w/o frame-wise tokens.</figcaption>
-          </figure>
-          <figure class="video-wrapper">
-            <video autoplay muted loop playsinline>
-              <source type="video/mp4" src="assets/VideoResults/A_chihuahua_in_astronaut_suit__W432H256_025_0_3_19.mp4" />
-            </video>
-            <figcaption>[C] <br> w/ mapping network, <br>w/ frame-wise tokens.</figcaption>
-          </figure>
+        <div class="nomobile">
+          <div id="wrapper" class="video-gallery">
+            <figure class="video-wrapper">
+              <video autoplay muted loop playsinline>
+                <source type="video/mp4" src="assets/VideoResults/A_chihuahua_in_astronaut_suit__W432H256_025_0_3_19___mapping_fw.mp4" />
+              </video>
+              <figcaption>[A] <br> w/o mapping network, <br>w/o frame-wise tokens.</figcaption>
+            </figure>
+            <figure class="video-wrapper">
+              <video autoplay muted loop playsinline>
+                <source type="video/mp4" src="assets/VideoResults/A_chihuahua_in_astronaut_suit__W432H256_025_0_3_19____fw.mp4" />
+              </video>
+              <figcaption>[B] <br> w/ mapping network, <br>w/o frame-wise tokens.</figcaption>
+            </figure>
+            <figure class="video-wrapper">
+              <video autoplay muted loop playsinline>
+                <source type="video/mp4" src="assets/VideoResults/A_chihuahua_in_astronaut_suit__W432H256_025_0_3_19.mp4" />
+              </video>
+              <figcaption>[C] <br> w/ mapping network, <br>w/ frame-wise tokens.</figcaption>
+            </figure>
+          </div>
         </div>
       </section>
 
     
     <br>
     <section>
-      <div class="columns is-centered has-text-centered">
+      <div class="columns is-centered has-text-centered nomobile">
         <h2 class="title is-3">Effect of varying the guidance scale α in MG sampling.</h2>
       </div>
       
       <br>
       
-      <div id="wrapper" class="video-gallery">
-        <figure class="video-wrapper">
-          <figcaption>&alpha; = 0</figcaption>
-          <video autoplay muted loop playsinline>
-            <source type="video/mp4" src="assets/VideoResults/Astronaut_riding_a_white_horse_W256H256_022_0_3_15_MG0___.mp4" />
-          </video>
-        </figure>
-        <figure class="video-wrapper">
-          <figcaption>&alpha; = 40 (Ours)</figcaption>
-          <video autoplay muted loop playsinline>
-            <source type="video/mp4" src="assets/VideoResults/Astronaut_riding_a_white_horse_W256H256_022_0_3_15_MG40___.mp4" />
-          </video>
-        </figure>
-        <figure class="video-wrapper">
-          <figcaption>&alpha; = 150</figcaption>
-          <video autoplay muted loop playsinline>
-            <source type="video/mp4" src="assets/VideoResults/Astronaut_riding_a_white_horse_W256H256_022_0_3_15_MG200___.mp4" />
-          </video>
-        </figure>
-        <div class="subtitle has-text-centered video-titles">
-          <span>An astronaut riding a horse</span>
+      <div class="nomobile">
+        <div id="wrapper" class="video-gallery">
+          <figure class="video-wrapper">
+            <figcaption>&alpha; = 0</figcaption>
+            <video autoplay muted loop playsinline>
+              <source type="video/mp4" src="assets/VideoResults/Astronaut_riding_a_white_horse_W256H256_022_0_3_15_MG0___.mp4" />
+            </video>
+          </figure>
+          <figure class="video-wrapper">
+            <figcaption>&alpha; = 40 (Ours)</figcaption>
+            <video autoplay muted loop playsinline>
+              <source type="video/mp4" src="assets/VideoResults/Astronaut_riding_a_white_horse_W256H256_022_0_3_15_MG40___.mp4" />
+            </video>
+          </figure>
+          <figure class="video-wrapper">
+            <figcaption>&alpha; = 150</figcaption>
+            <video autoplay muted loop playsinline>
+              <source type="video/mp4" src="assets/VideoResults/Astronaut_riding_a_white_horse_W256H256_022_0_3_15_MG200___.mp4" />
+            </video>
+          </figure>
+          <div class="subtitle has-text-centered video-titles">
+            <span>An astronaut riding a horse</span>
+          </div>
         </div>
       </div>
-      <div id="wrapper" class="video-gallery">
-        <figure class="video-wrapper">
-          <figcaption>&alpha; = 0</figcaption>
-          <video autoplay muted loop playsinline>
-            <source type="video/mp4" src="assets/VideoResults/A_cute_funny_rabbit_dancing,_r_W256H256_025_0_3_18_MG0___.mp4" />
-          </video>
-        </figure>
-        <figure class="video-wrapper">
-          <figcaption>&alpha; = 40 (Ours)</figcaption>
-          <video autoplay muted loop playsinline>
-            <source type="video/mp4" src="assets/VideoResults/A_cute_funny_rabbit_dancing,_r_W256H256_025_0_3_18_MG40___.mp4" />
-          </video>
-        </figure>
-        <figure class="video-wrapper">
-          <figcaption>&alpha; = 150</figcaption>
-          <video autoplay muted loop playsinline>
-            <source type="video/mp4" src="assets/VideoResults/A_cute_funny_rabbit_dancing,_r_W256H256_025_0_3_18_MG150___.mp4" />
-          </video>
-        </figure>
+      <div class="nomobile">
+        <div id="wrapper" class="video-gallery">
+          <figure class="video-wrapper">
+            <figcaption>&alpha; = 0</figcaption>
+            <video autoplay muted loop playsinline>
+              <source type="video/mp4" src="assets/VideoResults/A_cute_funny_rabbit_dancing,_r_W256H256_025_0_3_18_MG0___.mp4" />
+            </video>
+          </figure>
+          <figure class="video-wrapper">
+            <figcaption>&alpha; = 40 (Ours)</figcaption>
+            <video autoplay muted loop playsinline>
+              <source type="video/mp4" src="assets/VideoResults/A_cute_funny_rabbit_dancing,_r_W256H256_025_0_3_18_MG40___.mp4" />
+            </video>
+          </figure>
+          <figure class="video-wrapper">
+            <figcaption>&alpha; = 150</figcaption>
+            <video autoplay muted loop playsinline>
+              <source type="video/mp4" src="assets/VideoResults/A_cute_funny_rabbit_dancing,_r_W256H256_025_0_3_18_MG150___.mp4" />
+            </video>
+          </figure>
+        </div>
       </div>
       
       <br>
-      <div class="subtitle has-text-centered video-titles">
+      <div class="subtitle has-text-centered video-titles nomobile">
         <span>A cute funny rabbit dancing, realistic</span>
       </div>
     </section>
     <section class="section">
-      <div class="container is-max-desktop">
+      <div class="container is-max-desktop nomobile">
         <div class="columns is-centered has-text-centered">
           <div class="column is-four-fifths">
             <h2 class="title is-3">Off-the-shelf models Results</h2>
@@ -598,7 +609,7 @@
     </section>
 
     <section class="section">
-      <div class="container is-max-desktop">
+      <div class="container is-max-desktop nomobile">
         <div class="columns is-centered has-text-centered">
           <div class="column is-four-fifths">
             <div class="content has-text-justified">
@@ -656,7 +667,7 @@
 <!-- ################# -->
 
 <section class="section">
-  <div class="container is-max-desktop">
+  <div class="container is-max-desktop nomobile">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <div class="content has-text-justified">
@@ -765,7 +776,7 @@
 
 
   <section class="section">
-    <div class="container is-max-desktop">
+    <div class="container is-max-desktop nomobile">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
           <!-- Abstract 内容... -->

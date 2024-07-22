@@ -238,42 +238,42 @@ div.caption {
   background-color: #333333;
 }
 @media (hover: none) {
-  div.mobileonly {
+  .mobileonly {
     display: block;
   }
 
-  div.nomobile {
+  .nomobile {
     display: none;
   }
 
-  div.video_wrapper {
+  .video_wrapper {
     width: 100%;
   }
 }
 
 
 @media (hover: hover) {
-  div.mobileonly {
+  .mobileonly {
     display: none;
   }
 
-  div.nomobile {
-    display: block;
+  .nomobile {
+    display: block !important;
   }
 
-  div.video_wrapper {
+  .video_wrapper {
     width: 25%;
   }
 
-  div.video_wrapper2 {
+  .video_wrapper2 {
     width: 33.33%;
   }
 
-  div.video_wrapper3 {
+  .video_wrapper3 {
     width: 20%;
   }
 
-  div.video_wrapper4 {
+  .video_wrapper4 {
     width: 50%;
   }
 }
@@ -544,7 +544,7 @@ div.caption {
   max-width: 90%;
 }
  */
- .video-gallery {
+ div.video-gallery {
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
